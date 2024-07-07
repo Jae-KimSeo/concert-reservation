@@ -17,7 +17,7 @@ Milestone
 
 Architecture Sequence Diagram
 
-![concert reservation diagram-2024-07-01-082617](https://github.com/Jae-KimSeo/concert-reservation/assets/52844717/127cd371-fa4e-4d64-8b60-88d927d04959)
+![Concert ERD (1)](https://github.com/Jae-KimSeo/concert-reservation/assets/52844717/fc546906-83ff-4582-ba85-a51aca42723c)
 
 User Queue Token API Usecase Sequence Diagram
 
