@@ -45,7 +45,7 @@ Payment API Usecase Sequence Diagram
 ```
 결제 API 
 Method : POST 
-Endpoint : api/v1/payments
+Endpoint : api/v1/accounts/payments
 Request :
 	Header :
 		Authorization : Bearer <JWT>
@@ -137,7 +137,7 @@ Response :
 ```
 잔액 충전/조회 API 
 Method : PATCH
-Endpoint : api/v1/payments/balances
+Endpoint : api/v1/accounts/balances
 	string userId
 	long balanceAdjustment
 

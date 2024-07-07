@@ -11,12 +11,12 @@ import java.util.UUID;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/api/v1/payments")
+@RequestMapping("/api/v1/accounts")
 public class PaymentController {
 
     private final Map<String, Long> userBalances = new HashMap<>();
 
-    @PostMapping()
+    @PostMapping("/payments")
     public ResponseEntity<PaymentResponse> makePayment(@RequestHeader("Authorization") String authorization,
                                                        @RequestBody PaymentRequest request) {
         if (request.getScheduleId().isEmpty() ||
