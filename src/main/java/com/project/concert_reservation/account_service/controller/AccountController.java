@@ -1,6 +1,6 @@
-package com.project.concert_reservation.payment_service.controller;
+package com.project.concert_reservation.account_service.controller;
 
-import com.project.concert_reservation.payment_service.dto.*;
+import com.project.concert_reservation.account_service.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/accounts")
-public class PaymentController {
+public class AccountController {
 
     private final Map<String, Long> userBalances = new HashMap<>();
 
@@ -55,7 +55,6 @@ public class PaymentController {
                 request.getBalanceAdjustment() <= 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
 
         long currentBalance = userBalances.getOrDefault(request.getUserId(), 0L);
         long newBalance = currentBalance + request.getBalanceAdjustment();
