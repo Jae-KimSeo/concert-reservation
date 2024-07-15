@@ -1,0 +1,5 @@
+jwt:
+  secret: secretKey
+  expiration: 3600000
+ongoing.queue:
+  capacity: 100
