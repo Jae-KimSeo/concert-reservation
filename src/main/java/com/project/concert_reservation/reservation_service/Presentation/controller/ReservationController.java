@@ -1,7 +1,10 @@
-package com.project.concert_reservation.reservation_service.controller;
+package com.project.concert_reservation.reservation_service.Presentation.controller;
 
 
-import com.project.concert_reservation.reservation_service.dto.*;
+import com.project.concert_reservation.reservation_service.Presentation.controller.dto.ReservationDatesResponse;
+import com.project.concert_reservation.reservation_service.Presentation.controller.dto.ReservationRequest;
+import com.project.concert_reservation.reservation_service.Presentation.controller.dto.ReservationResponse;
+import com.project.concert_reservation.reservation_service.Presentation.controller.dto.ReservationSeatsResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +40,7 @@ public class ReservationController {
 
     @GetMapping("/seats/{scheduleId}")
     public ResponseEntity<ReservationSeatsResponse> getAvailableSeats(@RequestHeader("Authorization") String authorization,
-                                                            @PathVariable String scheduleId) {
+                                                                      @PathVariable String scheduleId) {
         if (scheduleId.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

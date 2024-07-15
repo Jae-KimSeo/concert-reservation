@@ -1,4 +1,4 @@
-package com.project.concert_reservation.payment_service.dto;
+package com.project.concert_reservation.account_service.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

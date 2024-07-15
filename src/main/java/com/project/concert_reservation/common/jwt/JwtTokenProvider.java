@@ -1,27 +1,31 @@
 package com.project.concert_reservation.common.jwt;
 
-import lombok.RequiredArgsConstructor;
 import io.jsonwebtoken.Jwts;
+import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
+import java.util.Date;
 
-@RequiredArgsConstructor
+@Component
 public class JwtTokenProvider {
     private final JwtConfig jwtConfig;
-    private final SecretKey key = Jwts.SIG.HS256.key().build();
+
+    public JwtTokenProvider(JwtConfig jwtConfig) {
+        this.jwtConfig = jwtConfig;
+    }
 
     public String createToken(String userId, String payload) {
-        String jwt = Jwts.builder()
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + jwtConfig.getValidityInMilliseconds());
 
+        return Jwts.builder()
                 .header()
                 .keyId(userId)
                 .and()
-
+                .issuedAt(now)
+                .expiration(validity)
                 .subject(payload)
-                .signWith(key)
-
+                .signWith(jwtConfig.getSecretKey())
                 .compact();
-        return jwt;
     }
 
 }
