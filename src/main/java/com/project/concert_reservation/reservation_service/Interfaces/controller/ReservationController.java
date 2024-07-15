@@ -1,10 +1,10 @@
-package com.project.concert_reservation.reservation_service.Presentation.controller;
+package com.project.concert_reservation.reservation_service.Interfaces.controller;
 
 
-import com.project.concert_reservation.reservation_service.Presentation.controller.dto.ReservationDatesResponse;
-import com.project.concert_reservation.reservation_service.Presentation.controller.dto.ReservationRequest;
-import com.project.concert_reservation.reservation_service.Presentation.controller.dto.ReservationResponse;
-import com.project.concert_reservation.reservation_service.Presentation.controller.dto.ReservationSeatsResponse;
+import com.project.concert_reservation.reservation_service.Interfaces.controller.dto.ReservationRequest;
+import com.project.concert_reservation.reservation_service.Interfaces.controller.dto.ReservationSeatsResponse;
+import com.project.concert_reservation.reservation_service.Interfaces.controller.dto.ReservationDatesResponse;
+import com.project.concert_reservation.reservation_service.Interfaces.controller.dto.ReservationResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

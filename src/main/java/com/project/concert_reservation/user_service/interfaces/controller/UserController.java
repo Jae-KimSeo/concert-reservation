@@ -1,6 +1,6 @@
-package com.project.concert_reservation.user_service.presentation.controller;
+package com.project.concert_reservation.user_service.interfaces.controller;
 
-import com.project.concert_reservation.user_service.presentation.controller.dto.UserResponse;
+import com.project.concert_reservation.user_service.interfaces.controller.dto.UserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

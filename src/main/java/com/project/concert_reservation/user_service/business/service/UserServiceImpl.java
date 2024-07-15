@@ -23,4 +23,8 @@ public class UserServiceImpl implements UserService {
         // TODO : Check User Table
         return "userId";
     }
+
+    public String CreateWaitingToken(String userId) {
+        return "";
+    }
 }

@@ -1,4 +1,4 @@
-package com.project.concert_reservation.reservation_service.Presentation.controller.dto;
+package com.project.concert_reservation.reservation_service.Interfaces.controller.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
