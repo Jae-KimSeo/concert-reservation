@@ -7,7 +7,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class UserResponse {
+public class CheckQueueStatusResponse {
     private String jwt;
-    private int waitingUserNum;
+    private Long waitingUserNum;
 }

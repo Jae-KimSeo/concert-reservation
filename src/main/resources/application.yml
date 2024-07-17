@@ -12,7 +12,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
 jwt:
-  secret: secretKey
+  secret: jaehyunJwtSecretKey123780417091270512081259
   expiration: 3600000
 ongoing.queue:
   capacity: 100

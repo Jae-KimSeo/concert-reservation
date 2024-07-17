@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
-@Repository
 @RequiredArgsConstructor
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private final UserJpaRepository userJpaRepository;
@@ -28,13 +29,12 @@ public class UserRepositoryImpl implements UserRepository {
         return userJpaRepository.findAll();
     }
 
-    public User findUserByUserId(Long id) {
+    public Optional<User> findUserByUserId(String id) {
         // TODO : Add CustomException case with Error Code
-        return userJpaRepository.findById(id)
-                .orElseThrow(() -> new CustomException("UserID is not found in database", HttpStatus.NOT_FOUND));
+        return userJpaRepository.findById(id);
     }
 
-    public boolean existsByUserId(Long id) {
+    public boolean existsByUserId(String id) {
         return userJpaRepository.existsById(id);
     }
 

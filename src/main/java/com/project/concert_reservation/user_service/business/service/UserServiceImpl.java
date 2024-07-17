@@ -10,28 +10,18 @@ import com.project.concert_reservation.user_service.infrastructure.repository.Us
 import com.project.concert_reservation.user_service.interfaces.controller.dto.UserCreateRequest;
 import com.project.concert_reservation.user_service.interfaces.controller.dto.UserCreateResponse;
 import com.project.concert_reservation.user_service.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
-    private final JwtConfig jwtConfig;
     private final JwtTokenProvider jwtTokenProvider;
     private final JwtTokenValidator jwtTokenValidator;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
-    @Autowired
-    public UserServiceImpl(JwtConfig jwtConfig, JwtTokenProvider jwtTokenProvider, JwtTokenValidator jwtTokenValidator, UserRepository userRepository, UserMapper userMapper) {
-        this.jwtConfig = jwtConfig;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.jwtTokenValidator = jwtTokenValidator;
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
 
     public UserDomain Cheat_CreateUser(UserCreateRequest userCreateRequest) {
             UserDomain userDomain = userMapper.dtoToDomain(userCreateRequest);
@@ -43,12 +33,15 @@ public class UserServiceImpl implements UserService {
             return userMapper.entityToDomain(userRepository.addUser(userMapper.domainToEntity(userDomain)));
     }
 
-    public String ValidateUser(String userId) {
-        // TODO : Check User Table
-        return "userId";
+    public boolean ValidateUser(String userId) {
+        return userRepository.existsByUserId(userId);
     }
 
     public String CreateWaitingToken(String userId) {
-        return "";
+        return jwtTokenProvider.createToken(userId, "");
+    }
+
+    public String ParseWaitingToken(String jwt){
+        return jwtTokenValidator.getUsername(jwt);
     }
 }

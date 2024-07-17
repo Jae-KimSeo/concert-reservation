@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @Component
 @RequiredArgsConstructor
-public class Queue {
+public class QueueDomain {
     protected final LinkedList<String> queue = new LinkedList<>();
     private static final Logger logger = LoggerFactory.getLogger(WaitingQueue.class);
 

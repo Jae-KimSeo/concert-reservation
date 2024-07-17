@@ -4,12 +4,18 @@ import com.project.concert_reservation.ConcertReservationApplication;
 import com.project.concert_reservation.user_service.business.domain.OngoingQueue;
 import com.project.concert_reservation.user_service.business.domain.QueueType;
 import com.project.concert_reservation.user_service.business.domain.WaitingQueue;
+import com.project.concert_reservation.user_service.infrastructure.repository.QueueJpaRepository;
+import com.project.concert_reservation.user_service.infrastructure.repository.QueueRepository;
+import com.project.concert_reservation.user_service.mapper.QueueMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -20,6 +26,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = ConcertReservationApplication.class)
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 public class QueueServiceTest {
 
     private static final Logger logger = LoggerFactory.getLogger(QueueServiceTest.class);
@@ -30,13 +37,18 @@ public class QueueServiceTest {
     @Spy
     private OngoingQueue ongoingQueue= new OngoingQueue(100);
 
+    @Mock
+    private QueueMapper queueMapper;
+
+    @Mock
+    private QueueRepository queueRepository;
+
     @InjectMocks
     private QueueServiceImpl queueService;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        queueService = new QueueServiceImpl(ongoingQueue, waitingQueue);
         when(waitingQueue.getQueue()).thenReturn(new LinkedList<>());
         when(ongoingQueue.getQueue()).thenReturn(new LinkedList<>());
         logger.info("Setup complete with mocked queues");
