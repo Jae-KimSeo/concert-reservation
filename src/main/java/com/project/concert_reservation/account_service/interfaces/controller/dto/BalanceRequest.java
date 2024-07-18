@@ -1,4 +1,4 @@
-package com.project.concert_reservation.account_service.dto;
+package com.project.concert_reservation.account_service.interfaces.controller.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class BalanceRequest {
-    private String UserId;
-    private Long balanceAdjustment;
+    private String userId;
+    private Long chargeAmount;
 }

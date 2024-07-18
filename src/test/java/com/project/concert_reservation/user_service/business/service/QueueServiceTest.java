@@ -37,12 +37,6 @@ public class QueueServiceTest {
     @Spy
     private OngoingQueue ongoingQueue= new OngoingQueue(100);
 
-    @Mock
-    private QueueMapper queueMapper;
-
-    @Mock
-    private QueueRepository queueRepository;
-
     @InjectMocks
     private QueueServiceImpl queueService;
 

@@ -16,7 +16,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     private final UserJpaRepository userJpaRepository;
 
-    @Override
     public User addUser(User user) {
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
@@ -24,17 +23,16 @@ public class UserRepositoryImpl implements UserRepository {
         return userJpaRepository.save(user);
     }
 
-    @Override
     public List<User> findAll() {
         return userJpaRepository.findAll();
     }
 
-    public Optional<User> findUserByUserId(String id) {
+    public Optional<User> findUserById(String id) {
         // TODO : Add CustomException case with Error Code
         return userJpaRepository.findById(id);
     }
 
-    public boolean existsByUserId(String id) {
+    public boolean existsById(String id) {
         return userJpaRepository.existsById(id);
     }
 
