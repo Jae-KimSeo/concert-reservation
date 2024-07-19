@@ -1,9 +1,7 @@
 package com.project.concert_reservation.user_service.infrastructure.repository;
 
-import com.project.concert_reservation.exception.CustomException;
 import com.project.concert_reservation.user_service.infrastructure.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.project.concert_reservation.exception;
+package com.project.concert_reservation.common.exception;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
