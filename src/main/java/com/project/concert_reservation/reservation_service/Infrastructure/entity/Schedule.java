@@ -17,8 +17,8 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String concertId;
-    private String placeId;
+    private Long concertId;
+    private Long placeId;
     private LocalDateTime reserveOpenAt;
     private LocalDateTime reserveCloseAt;
     private LocalDateTime eventDate;

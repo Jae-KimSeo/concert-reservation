@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class ReservationResponse {
     private boolean isReserved;
     private LocalDateTime reservedAt;
-    private LocalDateTime holdDeadline;
-    private String seatNo;
-    private long price;
+    private Long seatId;
+    private Long seatPrice;
 }

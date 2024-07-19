@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class ReservationRequest {
-    private String scheduleId;
-    private String seatId;
+    private Long scheduleId;
+    private Long seatId;
 }
