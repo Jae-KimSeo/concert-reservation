@@ -28,18 +28,29 @@ extra["snippetsDir"] = file("build/generated-snippets")
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("mysql:mysql-connector-java:8.0.32")
+
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("com.h2database:h2")
     annotationProcessor("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    compileOnly("org.projectlombok:lombok")
+    implementation ("io.jsonwebtoken:jjwt-api:0.12.6")
+    runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.12.6")
+    runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.12.6")
+
+    // Test dependencies
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.mockito:mockito-core")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    }
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation("org.mockito:mockito-core:5.3.1")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.3.1")
+
+    implementation ("org.springframework.boot:spring-boot-starter-schedule")
 }
 
 tasks.withType<Test> {
@@ -47,6 +58,8 @@ tasks.withType<Test> {
 }
 
 tasks.test {
+    useJUnitPlatform()
+    jvmArgs("-XX:+EnableDynamicAgentLoading", "-Djdk.instrument.traceUsage")
     outputs.dir(project.extra["snippetsDir"]!!)
 }
 
