@@ -50,6 +50,7 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.3.1")
     testImplementation("org.mockito:mockito-junit-jupiter:5.3.1")
 
+    implementation ("org.springframework.boot:spring-boot-starter-schedule")
 }
 
 tasks.withType<Test> {

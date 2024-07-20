@@ -5,7 +5,6 @@ import com.project.concert_reservation.account_service.infrastructure.BalanceRep
 import com.project.concert_reservation.account_service.infrastructure.entity.Balance;
 import com.project.concert_reservation.account_service.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,7 +20,6 @@ public class AccountServiceImpl implements AccountService {
         if (balance.isPresent()) {
           return accountMapper.entityToDomain(balance.get());
         } else {
-            // TODO : Add log for balance table create
             return accountMapper.entityToDomain(balanceRepository.addBalance(userId, 0L));
         }
     }
