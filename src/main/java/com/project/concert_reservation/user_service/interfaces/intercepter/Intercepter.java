@@ -30,7 +30,7 @@ public class Interceptor implements HandlerInterceptor {
             return false;
         }
 
-        request.setAttribute("username", jwtUtil.extractUsername(token));
+        request.setAttribute("userId", jwtUtil.extractUsername(token));
         return true;
     }
 }
