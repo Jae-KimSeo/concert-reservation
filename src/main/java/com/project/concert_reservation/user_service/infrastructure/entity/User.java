@@ -1,5 +1,6 @@
 package com.project.concert_reservation.user_service.infrastructure.entity;
 
+import com.project.concert_reservation.account_service.business.domain.BillStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -17,4 +18,5 @@ public class User {
 
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
+    BillStatus billStatus;
 }

@@ -9,4 +9,5 @@ public interface BalanceRepository {
     Balance updateBalance(String userId, Long chargeAmount);
     Optional<Balance> findBalanceByUserId(String userId);
     boolean existsByUserId(String userId);
+    
 }

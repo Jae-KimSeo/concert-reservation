@@ -9,4 +9,5 @@ public interface SeatRepository {
     Seat addSeat(Seat seat);
     Optional<Seat> findSeatById(Long SeatId);
     List<Seat> findSeatByScheduleId(Long scheduleId);
+
 }

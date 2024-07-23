@@ -7,53 +7,37 @@ import com.project.concert_reservation.account_service.interfaces.controller.dto
 import com.project.concert_reservation.account_service.interfaces.controller.dto.PaymentRequest;
 import com.project.concert_reservation.account_service.interfaces.controller.dto.PaymentResponse;
 import com.project.concert_reservation.account_service.mapper.AccountMapper;
+import com.project.concert_reservation.reservation_service.Business.domain.ReservationDomain;
+import com.project.concert_reservation.reservation_service.Business.domain.SeatDomain;
+import com.project.concert_reservation.reservation_service.Business.service.ReservationService;
+import com.project.concert_reservation.user_service.business.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/accounts")
 @RequiredArgsConstructor
 public class AccountController {
     private final AccountService accountService;
+    private final ReservationService reservationService;
+    private final UserService userService;
     private final AccountMapper accountMapper;
-    private final Map<String, Long> userBalances = new HashMap<>();
 
     @PostMapping("/payments")
-    public ResponseEntity<PaymentResponse> makePayment(@RequestHeader("Authorization") String authorization,
-                                                       @RequestBody PaymentRequest request) {
-        if (request.getScheduleId().isEmpty() ||
-                request.getSeatId().isEmpty() ||
-                request.getPrice() <= 0) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<PaymentResponse> makePayment(@RequestBody PaymentRequest request) {
+        // TODO : Get UserId from jwt
+        var userId = "test-user-id";
 
-        if (!authorization.startsWith("Bearer ")) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+        // TODO : Adopt pacade layer
+        reservationService.setPaidAt(request.getReservationId());
+        Long spendPoint = (-1) * request.getSeatPrice();
+        accountService.ReChargeBalance(userId, spendPoint);
+        userService.expireQueue(userId);
 
-        String userId = "mockUserId";
-
-        long currentBalance = userBalances.getOrDefault(userId, 10000L);
-        if (currentBalance < request.getPrice()) {
-            return new ResponseEntity<>(HttpStatus.PAYMENT_REQUIRED);
-        }
-
-        userBalances.put(userId, currentBalance - request.getPrice());
-
+        // TODO : Set Bill Entity and add Table
         PaymentResponse response = new PaymentResponse();
-        response.setBillId(UUID.randomUUID().toString());
-        response.setPrice(request.getPrice());
-        response.setBuyerId(userId);
-        response.setScheduleId(request.getScheduleId());
-        response.setSeatId(request.getSeatId());
-        response.setCreatedAt(LocalDateTime.now());
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

@@ -18,7 +18,7 @@ public class Seat {
     private Long id;
 
     private Long scheduleId;
-    private Long seatPrice;
+    private Long price;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

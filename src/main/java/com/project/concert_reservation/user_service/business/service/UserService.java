@@ -7,4 +7,5 @@ public interface UserService {
     UserDomain Cheat_CreateUser(UserCreateRequest userCreateRequest);
     boolean ValidateUser(String userId);
     String CreateWaitingToken(String userId);
+    void expireQueue(String userId);
 }

@@ -26,6 +26,7 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    // TODO : Change Method to name to contain spend case
     public BalanceDomain ReChargeBalance(String userId, Long chargeAmount){
         Optional<Balance> balance = balanceRepository.findBalanceByUserId(userId);
         if (balance.isPresent()) {
@@ -34,4 +35,5 @@ public class AccountServiceImpl implements AccountService {
             return accountMapper.entityToDomain(balanceRepository.addBalance(userId, chargeAmount));
         }
     }
+
 }

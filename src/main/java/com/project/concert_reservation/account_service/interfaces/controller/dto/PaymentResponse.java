@@ -1,5 +1,6 @@
 package com.project.concert_reservation.account_service.interfaces.controller.dto;
 
+import com.project.concert_reservation.account_service.business.domain.BillStatus;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -16,4 +17,5 @@ public class PaymentResponse {
     private String scheduleId;
     private String seatId;
     private LocalDateTime createdAt;
+    private BillStatus billStatus;
 }

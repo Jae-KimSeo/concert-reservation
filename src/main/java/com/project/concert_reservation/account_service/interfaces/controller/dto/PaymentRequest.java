@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class PaymentRequest {
-    private String scheduleId;
-    private String seatId;
-    private Long price;
+    private Long reservationId;
+    private Long seatId;
+    private Long seatPrice;
 }
