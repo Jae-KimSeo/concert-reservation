@@ -1,5 +1,7 @@
 package com.project.concert_reservation.common.jwt;
 
+import com.project.concert_reservation.support.jwt.JwtConfig;
+import com.project.concert_reservation.support.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
