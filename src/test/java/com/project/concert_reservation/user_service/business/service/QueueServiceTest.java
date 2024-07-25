@@ -1,12 +1,10 @@
 package com.project.concert_reservation.user_service.business.service;
 
 import com.project.concert_reservation.ConcertReservationApplication;
-import com.project.concert_reservation.user_service.business.domain.OngoingQueue;
-import com.project.concert_reservation.user_service.business.domain.QueueType;
-import com.project.concert_reservation.user_service.business.domain.WaitingQueue;
-import com.project.concert_reservation.user_service.infrastructure.repository.QueueJpaRepository;
-import com.project.concert_reservation.user_service.infrastructure.repository.QueueRepository;
-import com.project.concert_reservation.user_service.mapper.QueueMapper;
+import com.project.concert_reservation.application.queue.service.QueueServiceImpl;
+import com.project.concert_reservation.domain.queue.domain.OngoingQueue;
+import com.project.concert_reservation.domain.queue.domain.QueueType;
+import com.project.concert_reservation.domain.queue.domain.WaitingQueue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +13,6 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 

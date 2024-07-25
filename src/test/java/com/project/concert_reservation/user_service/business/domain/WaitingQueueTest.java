@@ -1,5 +1,6 @@
 package com.project.concert_reservation.user_service.business.domain;
 
+import com.project.concert_reservation.domain.queue.domain.WaitingQueue;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
