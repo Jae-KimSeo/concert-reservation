@@ -148,4 +148,5 @@ Response :
 	200 : 잔액 충전 및 조회 완료
 	400 : Bad Request (적절하지 않은 잔액 액수)
 	401 : Unauthorized (유저 검증 실패)
+
 ```
