@@ -25,7 +25,7 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     public Optional<Reservation> findReservationById(Long id){
         return reservationJpaRepository.findById(id);
     }
-    public List<Reservation> findReservationByHolderId(String holderId){
+    public List<Reservation> findReservationByHolderId(Long holderId){
         return reservationJpaRepository.findReservationByHolderId(holderId);
     }
 

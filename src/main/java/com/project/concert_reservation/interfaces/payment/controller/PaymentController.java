@@ -20,10 +20,11 @@ public class PaymentController {
     @PostMapping("/payments")
     public ResponseEntity<PaymentResponse> makePayment(@RequestBody Long userId, @RequestBody Long seatPrice) {
         // TODO : Get UserId from jwt
-        paymentFacade.processPay(userId, seatPrice);
+        Long billId = paymentFacade.pay(userId, seatPrice);
 
         // TODO : Set Bill Entity and add Table
         PaymentResponse response = new PaymentResponse();
+        response.setBillId(billId);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

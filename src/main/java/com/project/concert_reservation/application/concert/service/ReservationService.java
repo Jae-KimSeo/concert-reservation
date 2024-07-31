@@ -15,6 +15,6 @@ public interface ReservationService {
     List<ScheduleDomain> getScheduleInfo(Long concertId, Long placeId);
     List<SeatDTO> getSeatsInfo(Long scheduleId);
     ReservationDTO makeReservation(Long seatId);
-    Seat getReservedSeatInfo(String userId);
+    Seat getReservedSeatInfo(Long userId);
     void setPaidAt(Long reservationId);
 }

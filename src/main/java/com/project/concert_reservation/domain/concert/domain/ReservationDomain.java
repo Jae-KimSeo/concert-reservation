@@ -5,16 +5,18 @@ import com.project.concert_reservation.infra.concert.repository.SeatRepository;
 import com.project.concert_reservation.domain.concert.entity.Reservation;
 import com.project.concert_reservation.domain.concert.entity.Seat;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Component
 @RequiredArgsConstructor
 public class ReservationDomain {
     private final ReservationRepository reservationRepository;
     private final SeatRepository seatRepository;
 
-    public Seat getReservedSeatInfo(String userId){
+    public Seat getReservedSeatInfo(Long userId){
         return reservationRepository.findReservationByHolderId(userId).getFirst().getSeat();
     }
 

@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface ReservationRepository {
     Reservation addReservation(Reservation reservation);
     Optional<Reservation> findReservationById(Long reservationId);
-    List<Reservation> findReservationByHolderId(String holderId);
+    List<Reservation> findReservationByHolderId(Long holderId);
     Reservation updateReservation(Reservation reservation);
 }

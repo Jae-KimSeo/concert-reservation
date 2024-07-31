@@ -13,8 +13,8 @@ public class PaymentFacade {
     private final PointService pointService;
     private final QueueService queueService;
 
-    public void processPay(Long userId, Long price){
+    public Long pay(Long userId, Long price){
         pointService.spendPoint(userId, price);
-        paymentService.makePayment(userId, price);
+        return paymentService.makePayment(userId, price);
     }
 }

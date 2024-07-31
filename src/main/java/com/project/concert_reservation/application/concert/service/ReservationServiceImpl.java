@@ -60,7 +60,7 @@ public class ReservationServiceImpl implements ReservationService{
         }
     }
 
-    public Seat getReservedSeatInfo(String userId){
+    public Seat getReservedSeatInfo(Long userId){
         return reservationRepository.findReservationByHolderId(userId).getFirst().getSeat();
     }
 
