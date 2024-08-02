@@ -1,6 +1,8 @@
 package com.project.concert_reservation.infra.concert.repository;
 
-import com.project.concert_reservation.domain.concert.entity.Concert;
+import com.project.concert_reservation.domain.concert.entity.ConcertEntity;
+import com.project.concert_reservation.domain.concert.port.ConcertRepository;
+import com.project.concert_reservation.infra.concert.repository.orm.ConcertJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,16 +16,16 @@ public class ConcertRepositoryImpl implements ConcertRepository {
 
     private final ConcertJpaRepository concertJpaRepository;
 
-    public Concert addConcert(Concert concert){
+    public ConcertEntity addConcert(ConcertEntity concert){
         concert.setCreatedAt(LocalDateTime.now());
         concert.setUpdatedAt(LocalDateTime.now());
 
         return concertJpaRepository.save(concert);
     }
 
-    public List<Concert> findAll() { return concertJpaRepository.findAll();}
+    public List<ConcertEntity> findAll() { return concertJpaRepository.findAll();}
 
-    public Optional<Concert> findConcertById(Long id){
+    public Optional<ConcertEntity> findConcertById(Long id){
         return concertJpaRepository.findById(id);
     }
 }

@@ -1,9 +1,6 @@
 package com.project.concert_reservation.domain.concert.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,13 +9,18 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class Place {
+public class ReservationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private int capacity;
+    private Long holderId;
+
+    @OneToOne
+    private SeatEntity seatEntity;
+
+    private LocalDateTime reservedAt;
+    private LocalDateTime paidAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

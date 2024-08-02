@@ -21,24 +21,22 @@ public class PointService {
         return optionalEntity.map(pointMapper::entityToDomain).orElse(null);
     }
 
-    public Point rechargePoint(Long userId, Long point){
-        return updatePoint(userId, point);
+    public Point rechargePoint(Long userId, Long rechargePoint){
+        Point point = getPoint(userId);
+
+        point.rechargePoint(rechargePoint);
+        return updatePoint(point);
     }
 
-    public Point spendPoint(Long userId, Long point){
-        return updatePoint(userId, (-1) * point);
+    public Point spendPoint(Long userId, Long spendPoint){
+        Point point = getPoint(userId);
+
+        point.spendPoint(spendPoint);
+        return updatePoint(point);
     }
 
     @Nullable
-    private Point updatePoint(Long userId, Long point) {
-        Optional<PointEntity> optionalEntity = pointRepository.findPointByUserId(userId);
-        if(optionalEntity.isPresent()){
-            PointEntity pointEntity = optionalEntity.get();
-            pointEntity.setPoint(optionalEntity.get().getPoint() + point);
-            return pointMapper.entityToDomain(pointRepository.updatePoint(userId, pointEntity.getPoint()));
-        } else {
-            // TODO : return error code
-            return null;
-        }
+    private Point updatePoint(Point point) {
+        return pointMapper.entityToDomain(pointRepository.updatePoint(point.getUserId(), point.getPoint()));
     }
 }

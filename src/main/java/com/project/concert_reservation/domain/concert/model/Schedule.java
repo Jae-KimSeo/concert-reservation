@@ -1,4 +1,4 @@
-package com.project.concert_reservation.domain.concert.domain;
+package com.project.concert_reservation.domain.concert.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class ScheduleDomain {
+public class Schedule {
     private Long id;
     private Long concertId;
     private Long placeId;

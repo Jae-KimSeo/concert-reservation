@@ -1,6 +1,8 @@
 package com.project.concert_reservation.infra.concert.repository;
 
-import com.project.concert_reservation.domain.concert.entity.Reservation;
+import com.project.concert_reservation.domain.concert.entity.ReservationEntity;
+import com.project.concert_reservation.domain.concert.port.ReservationRepository;
+import com.project.concert_reservation.infra.concert.repository.orm.ReservationJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,24 +16,24 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 
     private final ReservationJpaRepository reservationJpaRepository;
 
-    public Reservation addReservation(Reservation reservation){
-        reservation.setReservedAt(LocalDateTime.now());
-        reservation.setCreatedAt(LocalDateTime.now());
-        reservation.setUpdatedAt(LocalDateTime.now());
+    public ReservationEntity addReservation(ReservationEntity reservationEntity){
+        reservationEntity.setReservedAt(LocalDateTime.now());
+        reservationEntity.setCreatedAt(LocalDateTime.now());
+        reservationEntity.setUpdatedAt(LocalDateTime.now());
 
-        return reservationJpaRepository.save(reservation);
+        return reservationJpaRepository.save(reservationEntity);
     }
 
-    public Optional<Reservation> findReservationById(Long id){
+    public Optional<ReservationEntity> findReservationById(Long id){
         return reservationJpaRepository.findById(id);
     }
-    public List<Reservation> findReservationByHolderId(Long holderId){
+    public List<ReservationEntity> findReservationByHolderId(Long holderId){
         return reservationJpaRepository.findReservationByHolderId(holderId);
     }
 
-    public Reservation updateReservation(Reservation reservation){
-        reservation.setUpdatedAt(LocalDateTime.now());
+    public ReservationEntity updateReservation(ReservationEntity reservationEntity){
+        reservationEntity.setUpdatedAt(LocalDateTime.now());
 
-        return reservationJpaRepository.save(reservation);
+        return reservationJpaRepository.save(reservationEntity);
     }
 }

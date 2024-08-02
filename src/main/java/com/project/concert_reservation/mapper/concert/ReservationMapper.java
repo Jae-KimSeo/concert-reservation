@@ -1,7 +1,7 @@
 package com.project.concert_reservation.mapper.concert;
 
 import com.project.concert_reservation.domain.concert.dto.ReservationDTO;
-import com.project.concert_reservation.domain.concert.entity.Reservation;
+import com.project.concert_reservation.domain.concert.entity.ReservationEntity;
 import com.project.concert_reservation.interfaces.concert.controller.dto.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,24 +11,24 @@ import org.springframework.stereotype.Component;
 public class ReservationMapper {
     private final SeatMapper seatMapper;
 
-    public ReservationDTO entityToDTO(Reservation reservation){
+    public ReservationDTO entityToDTO(ReservationEntity reservationEntity){
         ReservationDTO reservationDTO = new ReservationDTO();
-        reservationDTO.setHolderId(reservation.getHolderId());
-        reservationDTO.setSeatDTO(seatMapper.entityToDTO(reservation.getSeat()));
-        reservationDTO.setReservedAt(reservation.getReservedAt());
-        reservationDTO.setPaidAt(reservation.getPaidAt());
+        reservationDTO.setHolderId(reservationEntity.getHolderId());
+        reservationDTO.setSeatDTO(seatMapper.entityToDTO(reservationEntity.getSeatEntity()));
+        reservationDTO.setReservedAt(reservationEntity.getReservedAt());
+        reservationDTO.setPaidAt(reservationEntity.getPaidAt());
 
         return reservationDTO;
     }
 
-    public Reservation DTOToEntity(ReservationDTO reservationDTO){
-        Reservation reservation = new Reservation();
-        reservation.setSeat(seatMapper.dtoToEntity(reservationDTO.getSeatDTO()));
-        reservation.setHolderId(reservationDTO.getHolderId());
-        reservation.setReservedAt(reservationDTO.getReservedAt());
-        reservation.setPaidAt(reservationDTO.getPaidAt());
+    public ReservationEntity DTOToEntity(ReservationDTO reservationDTO){
+        ReservationEntity reservationEntity = new ReservationEntity();
+        reservationEntity.setSeatEntity(seatMapper.dtoToEntity(reservationDTO.getSeatDTO()));
+        reservationEntity.setHolderId(reservationDTO.getHolderId());
+        reservationEntity.setReservedAt(reservationDTO.getReservedAt());
+        reservationEntity.setPaidAt(reservationDTO.getPaidAt());
 
-        return reservation;
+        return reservationEntity;
     }
 
     public ReservationResponse  domainToResponse(ReservationDTO reservationDTO){

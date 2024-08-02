@@ -1,6 +1,6 @@
 package com.project.concert_reservation.domain.payment.entity;
 
-import com.project.concert_reservation.domain.concert.entity.Reservation;
+import com.project.concert_reservation.domain.concert.entity.ReservationEntity;
 import com.project.concert_reservation.domain.payment.model.Payment;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class PaymentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
-    private Reservation reservation;
+    private ReservationEntity reservationEntity;
     private LocalDateTime createdAt;
     private Payment.PaymentStatus paymentStatus;
 }
