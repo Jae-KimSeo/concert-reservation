@@ -1,10 +1,8 @@
 package com.project.concert_reservation.interfaces.concert.controller;
 
 
-import com.project.concert_reservation.domain.concert.dto.SeatDTO;
 import com.project.concert_reservation.domain.concert.model.Seat;
 import com.project.concert_reservation.interfaces.concert.controller.dto.*;
-import com.project.concert_reservation.domain.concert.model.Concert;
 import com.project.concert_reservation.domain.concert.model.Place;
 import com.project.concert_reservation.domain.concert.model.Schedule;
 import com.project.concert_reservation.application.concert.service.ConcertService;
@@ -16,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -40,7 +37,7 @@ public class ConcertController {
         List<String> names = new ArrayList<>();
         List<Integer> capacities = new ArrayList<>();
 
-        List<Place> places = concertService.getPlaceInfo(concertId);
+        List<Place> places = concertService.getPlacesInfo(concertId);
 
         if (places.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -67,7 +64,7 @@ public class ConcertController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        List<Place> places = concertService.getPlaceInfo(concertId);
+        List<Place> places = concertService.getPlacesInfo(concertId);
 
         if (places.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -76,7 +73,7 @@ public class ConcertController {
         List<Long> scheduleIdList = new ArrayList<>();
         List<LocalDateTime> scheduleDateList = new ArrayList<>();
         for (Place place : places){
-            List<Schedule> schedules = concertService.getScheduleInfo(concertId, place.getId());
+            List<Schedule> schedules = concertService.getSchedulesInfo(concertId, place.getId());
             for (Schedule schedule : schedules){
                 scheduleIdList.add(schedule.getId());
                 scheduleDateList.add(schedule.getEventDate());
@@ -93,25 +90,34 @@ public class ConcertController {
     @GetMapping("/seats/{scheduleId}")
     public ResponseEntity<SeatsResponse> getAvailableSeats(@PathVariable Long scheduleId) {
 
-        List<SeatDTO> seats = concertService.getSeatsInfo(scheduleId);
+        List<Seat> seats = concertService.getSeatsInfo(scheduleId);
+
+        if (seats.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        List<Long> seatIds = new ArrayList<>();
+        List<Long> seatPrices = new ArrayList<>();
+        for (Seat seat : seats){
+            seatIds.add(seat.getId());
+            seatPrices.add(seat.getPrice());
+        }
 
         SeatsResponse response = new SeatsResponse();
-
+        response.setIds(seatIds);
+        response.setPrices(seatPrices);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/seats")
-    public ResponseEntity<ReservationResponse> reserveSeat(@RequestHeader("Authorization") String authorization,
-                                                           @RequestBody ReservationRequest request) {
+    public ResponseEntity<ReservationResponse> reserveSeat(@RequestBody ReservationRequest request) {
         if (request.getScheduleId()  == null ||
         request.getSeatId() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        ReservationResponse response = reservationMapper.domainToResponse(concertService.makeReservation(request.getSeatId()));
-        response.setReserved(true);
-
+        ReservationResponse response = reservationMapper.domainToResponse(concertService.makeReservation(request.getUserId(), request.getSeatId()));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -4,29 +4,23 @@ import com.project.concert_reservation.domain.concert.entity.ReservationEntity;
 import com.project.concert_reservation.domain.concert.entity.SeatEntity;
 import com.project.concert_reservation.domain.concert.port.ReservationRepository;
 import com.project.concert_reservation.domain.concert.port.SeatRepository;
+import jakarta.persistence.OneToOne;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Getter
+@Setter
 @Component
-@RequiredArgsConstructor
 public class Reservation {
-    private final ReservationRepository reservationRepository;
-    private final SeatRepository seatRepository;
-
-    public SeatEntity getReservedSeatInfo(Long userId){
-        return reservationRepository.findReservationByHolderId(userId).getFirst().getSeatEntity();
-    }
-
-    public void setPaidAt(Long reservationId, LocalDateTime paidAt){
-        Optional<ReservationEntity> reservation = reservationRepository.findReservationById(reservationId);
-        if (reservation.isPresent()) {
-            reservation.get().setPaidAt(paidAt);
-        } else {
-            // TODO : Add Error code?
-            return;
-        }
-    }
+    private Long id;
+    private Long holderId;
+    private Long seatId;
+    private boolean isReserved = false;
+    private LocalDateTime reservedAt;
+    private LocalDateTime paidAt;
 }

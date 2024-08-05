@@ -1,7 +1,7 @@
 package com.project.concert_reservation.mapper.concert;
 
-import com.project.concert_reservation.domain.concert.dto.SeatDTO;
 import com.project.concert_reservation.domain.concert.entity.SeatEntity;
+import com.project.concert_reservation.domain.concert.model.Seat;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,24 +9,28 @@ import java.util.List;
 
 @Component
 public class SeatMapper {
-    public SeatDTO entityToDTO(SeatEntity seatEntity){
-        SeatDTO seatDTO = new SeatDTO();
-        seatDTO.setPrice(seatEntity.getPrice());
+    public Seat entityToDomain(SeatEntity seatEntity){
+        Seat seat = new Seat();
+        seat.setId(seatEntity.getId());
+        seat.setScheduleId(seatEntity.getScheduleId());
+        seat.setPrice(seatEntity.getPrice());
 
-        return seatDTO;
+        return seat;
     }
 
-    public List<SeatDTO> entityToDTOBatch(List<SeatEntity> seatEntities){
-        List<SeatDTO> seatDTOs = new ArrayList<>();
+    public List<Seat> entityToDomainBatch(List<SeatEntity> seatEntities){
+        List<Seat> seats = new ArrayList<>();
         for (SeatEntity seatEntity : seatEntities) {
-            seatDTOs.add(entityToDTO(seatEntity));
+            seats.add(entityToDomain(seatEntity));
         }
-        return seatDTOs;
+        return seats;
     }
 
-    public SeatEntity dtoToEntity(SeatDTO seatDTO){
+    public SeatEntity domainToEntity(Seat seat){
         SeatEntity seatEntity = new SeatEntity();
-        seatEntity.setPrice(seatDTO.getPrice());
+        seatEntity.setId(seat.getId());
+        seatEntity.setScheduleId(seat.getScheduleId());
+        seatEntity.setPrice(seat.getPrice());
 
         return seatEntity;
     }

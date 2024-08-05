@@ -10,6 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class SeatsResponse {
-    private List<String> seatIds;
-    private List<String> seatNos;
+    private List<Long> ids;
+    private List<Long> prices;
 }

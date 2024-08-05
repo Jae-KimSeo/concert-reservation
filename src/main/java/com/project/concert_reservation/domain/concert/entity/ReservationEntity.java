@@ -16,8 +16,7 @@ public class ReservationEntity {
 
     private Long holderId;
 
-    @OneToOne
-    private SeatEntity seatEntity;
+    private Long seatId;
 
     private LocalDateTime reservedAt;
     private LocalDateTime paidAt;

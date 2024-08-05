@@ -1,11 +1,12 @@
 package com.project.concert_reservation.domain.concert.model;
 
-import com.project.concert_reservation.domain.concert.entity.ConcertEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
+@Getter
+@Setter
+@Component
 public class Concert {
     private Long id;
     private String name;

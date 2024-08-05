@@ -1,7 +1,7 @@
 package com.project.concert_reservation.mapper.concert;
 
-import com.project.concert_reservation.domain.concert.dto.ReservationDTO;
 import com.project.concert_reservation.domain.concert.entity.ReservationEntity;
+import com.project.concert_reservation.domain.concert.model.Reservation;
 import com.project.concert_reservation.interfaces.concert.controller.dto.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,31 +11,30 @@ import org.springframework.stereotype.Component;
 public class ReservationMapper {
     private final SeatMapper seatMapper;
 
-    public ReservationDTO entityToDTO(ReservationEntity reservationEntity){
-        ReservationDTO reservationDTO = new ReservationDTO();
-        reservationDTO.setHolderId(reservationEntity.getHolderId());
-        reservationDTO.setSeatDTO(seatMapper.entityToDTO(reservationEntity.getSeatEntity()));
-        reservationDTO.setReservedAt(reservationEntity.getReservedAt());
-        reservationDTO.setPaidAt(reservationEntity.getPaidAt());
+    public Reservation entityToDomain(ReservationEntity reservationEntity){
+        Reservation reservation = new Reservation();
+        reservation.setHolderId(reservationEntity.getHolderId());
+        reservation.setSeatId(reservationEntity.getId());
+        reservation.setReservedAt(reservationEntity.getReservedAt());
+        reservation.setPaidAt(reservationEntity.getPaidAt());
 
-        return reservationDTO;
+        return reservation;
     }
 
-    public ReservationEntity DTOToEntity(ReservationDTO reservationDTO){
+    public ReservationEntity domainToEntity(Reservation reservation){
         ReservationEntity reservationEntity = new ReservationEntity();
-        reservationEntity.setSeatEntity(seatMapper.dtoToEntity(reservationDTO.getSeatDTO()));
-        reservationEntity.setHolderId(reservationDTO.getHolderId());
-        reservationEntity.setReservedAt(reservationDTO.getReservedAt());
-        reservationEntity.setPaidAt(reservationDTO.getPaidAt());
+        reservationEntity.setSeatId(reservation.getId());
+        reservationEntity.setHolderId(reservation.getHolderId());
+        reservationEntity.setReservedAt(reservation.getReservedAt());
+        reservationEntity.setPaidAt(reservation.getPaidAt());
 
         return reservationEntity;
     }
 
-    public ReservationResponse  domainToResponse(ReservationDTO reservationDTO){
+    public ReservationResponse  domainToResponse(Reservation reservation){
         ReservationResponse reservationResponse = new ReservationResponse();
-        reservationResponse.setReservedAt(reservationDTO.getReservedAt());
-        reservationResponse.setSeatId(reservationDTO.getSeatDTO().getId());
-        reservationResponse.setSeatPrice(reservationDTO.getSeatDTO().getPrice());
+        reservationResponse.setReservedAt(reservation.getReservedAt());
+        reservationResponse.setSeatId(reservation.getSeatId());
 
         return reservationResponse;
     }

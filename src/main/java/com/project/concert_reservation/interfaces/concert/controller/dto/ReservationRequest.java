@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class ReservationRequest {
+    // TODO : userId come from jwt
+    private Long userId;
     private Long scheduleId;
     private Long seatId;
 }
