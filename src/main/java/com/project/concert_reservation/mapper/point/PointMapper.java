@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class PointMapper {
     public Point entityToDomain(PointEntity pointEntity){
-        return new Point(pointEntity.getUserId());
+        Point point = new Point(pointEntity.getUserId());
+        point.setId(pointEntity.getId());
+
+        return point;
     }
 }

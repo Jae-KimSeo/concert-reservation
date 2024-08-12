@@ -6,6 +6,7 @@ import com.project.concert_reservation.infra.point.repository.orm.PointJpaReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -13,13 +14,15 @@ import java.util.Optional;
 public class PointRepositoryImpl implements PointRepository {
     private final PointJpaRepository pointJpaRepository;
 
-    public PointEntity addPoint(Long userId, Long point){
-        Optional<PointEntity> optionalPointEntity = findPointByUserId(userId);
+    public PointEntity addPoint(PointEntity pointEntity){
+        Optional<PointEntity> optionalPointEntity = findPointByUserId(pointEntity.getUserId());
 
         if (optionalPointEntity.isEmpty()) {
             PointEntity newPointEntity = new PointEntity();
-            newPointEntity.setUserId(userId);
-            newPointEntity.setPoint(point);
+            newPointEntity.setUserId(pointEntity.getUserId());
+            newPointEntity.setPoint(pointEntity.getPoint());
+            newPointEntity.setCreatedAt(LocalDateTime.now());
+            newPointEntity.setUpdatedAt(LocalDateTime.now());
 
             return pointJpaRepository.save(newPointEntity);
         }
@@ -49,5 +52,10 @@ public class PointRepositoryImpl implements PointRepository {
 
     public boolean existsByUserId(Long userId){
         return pointJpaRepository.existsByUserId(userId);
+    }
+
+    public Long findLastUserIdElement(){
+        Optional<Long> optionalUserId = pointJpaRepository.findLastUserIdElement();
+        return optionalUserId.orElse(null);
     }
 }

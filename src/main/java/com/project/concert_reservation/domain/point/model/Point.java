@@ -1,18 +1,21 @@
 package com.project.concert_reservation.domain.point.model;
 
-import com.project.concert_reservation.domain.point.entity.PointEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@RequiredArgsConstructor
+@Getter
+@Setter
 public class Point {
     private Long id;
 
-    @Getter
     private final Long userId;
 
-    @Getter
     private Long point;
+
+    public Point (Long userId){
+        this.userId = userId;
+    }
 
     public Long rechargePoint(Long rechargePoint){
         this.point = this.point + rechargePoint;

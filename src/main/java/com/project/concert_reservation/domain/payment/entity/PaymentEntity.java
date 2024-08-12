@@ -15,8 +15,7 @@ public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    private ReservationEntity reservationEntity;
+    private Long reservationId;
     private LocalDateTime createdAt;
     private Payment.PaymentStatus paymentStatus;
 }

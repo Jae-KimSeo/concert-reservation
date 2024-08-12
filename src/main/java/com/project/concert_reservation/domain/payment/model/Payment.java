@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Payment {
     private Long id;
-    private Reservation reservation;
+    private Long reservationId;
     private PaymentStatus paymentStatus;
 
     public enum PaymentStatus {

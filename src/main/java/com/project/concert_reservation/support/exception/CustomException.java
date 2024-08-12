@@ -26,5 +26,11 @@ public class CustomException extends RuntimeException {
     public HttpStatus getHttpStatus() {
         return httpStatus;
     }
+
+    public static class PointNotFoundException extends RuntimeException {
+        public PointNotFoundException(Long userId) {
+            super("Point not found for user ID: " + userId);
+        }
+    }
 }
 
