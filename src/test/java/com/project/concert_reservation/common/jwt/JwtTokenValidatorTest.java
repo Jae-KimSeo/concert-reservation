@@ -63,7 +63,7 @@ public class JwtTokenValidatorTest {
                 .signWith(jwtConfig.getSecretKey())
                 .compact();
 
-        String username = jwtTokenValidator.getUsername(token);
+        String username = jwtTokenValidator.extractUsername(token);
         assertEquals("user123", username, "Username should match");
         logger.info("Success: extracted username from token: {}", username);
     }

@@ -29,7 +29,7 @@ public class JwtTokenValidator {
         }
     }
 
-    public String getUsername(String token) {
+    public String extractUsername(String token) {
         return Jwts.parser().
                 verifyWith(jwtConfig.getSecretKey())
                 .build()

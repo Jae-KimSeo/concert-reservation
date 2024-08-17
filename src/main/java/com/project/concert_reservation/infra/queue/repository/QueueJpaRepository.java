@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface QueueJpaRepository extends JpaRepository<Queue, Long> {
     List<Queue> findByUserId(String userId);
-    List<Queue> findQueueByQueueType(QueueType queueType);
     void deleteByUserId(String userId);
 }

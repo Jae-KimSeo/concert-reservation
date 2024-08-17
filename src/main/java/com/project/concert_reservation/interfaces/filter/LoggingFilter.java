@@ -1,28 +1,20 @@
-package com.project.concert_reservation.common.filter;
+package com.project.concert_reservation.interfaces.filter;
 
-import jakarta.servlet.Filter;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Enumeration;
 
-@Component
 public class LoggingFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
 
-    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // 필터 초기화
     }
@@ -43,38 +35,17 @@ public class LoggingFilter implements Filter {
             logger.info("{}: {}", headerName, httpRequest.getHeader(headerName));
         }
 
-        ResponseWrapper responseWrapper = new ResponseWrapper(httpResponse);
-
-        chain.doFilter(request, responseWrapper);
+        chain.doFilter(request, httpResponse);
 
         logger.info("Response Status: {}", httpResponse.getStatus());
         logger.info("Response Headers:");
         for (String headerName : httpResponse.getHeaderNames()) {
             logger.info("{}: {}", headerName, httpResponse.getHeader(headerName));
         }
-        logger.info("Response Body: {}", responseWrapper.getContent());
     }
 
     @Override
     public void destroy() {
         // 필터 제거
-    }
-}
-
-class ResponseWrapper extends HttpServletResponseWrapper {
-
-    private StringWriter contentWriter = new StringWriter();
-
-    public ResponseWrapper(HttpServletResponse response) {
-        super(response);
-    }
-
-    @Override
-    public PrintWriter getWriter() throws IOException {
-        return new PrintWriter(contentWriter);
-    }
-
-    public String getContent() {
-        return contentWriter.toString();
     }
 }

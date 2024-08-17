@@ -1,19 +1,19 @@
-package com.project.concert_reservation.user_service.interfaces.intercepter;
+package com.project.concert_reservation.interfaces.intercepter;
 
+import com.project.concert_reservation.support.jwt.JwtTokenProvider;
+import com.project.concert_reservation.support.jwt.JwtTokenValidator;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 @Component
+@RequiredArgsConstructor
 public class Interceptor implements HandlerInterceptor {
 
-    private final JwtUtil jwtUtil;
-
-    public Interceptor(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
+    private final JwtTokenValidator jwtTokenValidator;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -25,12 +25,12 @@ public class Interceptor implements HandlerInterceptor {
         }
 
         String token = authorizationHeader.substring(7);
-        if (!jwtUtil.validateToken(token)) {
+        if (!jwtTokenValidator.validateToken(token)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
 
-        request.setAttribute("userId", jwtUtil.extractUsername(token));
+        request.setAttribute("userId", jwtTokenValidator.extractUsername(token));
         return true;
     }
 }

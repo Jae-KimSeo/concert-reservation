@@ -1,10 +1,9 @@
-package com.project.concert_reservation.user_service.interfaces.scheduler;
+package com.project.concert_reservation.interfaces.scheduler;
 
-import com.project.concert_reservation.user_service.business.domain.QueueType;
-import com.project.concert_reservation.user_service.infrastructure.entity.Queue;
-import com.project.concert_reservation.user_service.infrastructure.repository.QueueRepository;
+import com.project.concert_reservation.domain.queue.domain.QueueType;
+import com.project.concert_reservation.domain.queue.entity.Queue;
+import com.project.concert_reservation.infra.queue.repository.QueueRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +19,7 @@ public class Scheduler {
 
     @Scheduled(fixedRate = 60000)
     public void checkDatabaseField() {
-        List<Queue> queues = queueRepository.findQueueByQueueType(QueueType.ONGOING);
+        List<Queue> queues = queueRepository.findQueueByUserId("");
         for (Queue queue : queues) {
             Duration duration = Duration.between(queue.getLastActiveTime(), LocalDateTime.now());
             if (duration.toMinutes() >= 3) {
