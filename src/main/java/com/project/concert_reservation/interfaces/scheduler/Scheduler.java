@@ -1,8 +1,8 @@
 package com.project.concert_reservation.interfaces.scheduler;
 
-import com.project.concert_reservation.domain.queue.domain.QueueType;
-import com.project.concert_reservation.domain.queue.entity.Queue;
-import com.project.concert_reservation.infra.queue.repository.QueueRepository;
+import com.project.concert_reservation.domain.queue.domain.Queue;
+import com.project.concert_reservation.domain.queue.entity.QueueEntity;
+import com.project.concert_reservation.domain.queue.port.QueueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -19,12 +19,12 @@ public class Scheduler {
 
     @Scheduled(fixedRate = 60000)
     public void checkDatabaseField() {
-        List<Queue> queues = queueRepository.findQueueByUserId("");
-        for (Queue queue : queues) {
-            Duration duration = Duration.between(queue.getLastActiveTime(), LocalDateTime.now());
+        List<QueueEntity> queueEntities = queueRepository.findQueueByUserId(1L);
+        for (QueueEntity queueEntity : queueEntities) {
+            Duration duration = Duration.between(queueEntity.getLastActiveTime(), LocalDateTime.now());
             if (duration.toMinutes() >= 3) {
-                queue.setQueueType(QueueType.None);
-                queueRepository.updateQueue(queue);
+                queueEntity.setQueueType(Queue.QueueType.None);
+                queueRepository.updateQueue(queueEntity);
             }
         }
     }

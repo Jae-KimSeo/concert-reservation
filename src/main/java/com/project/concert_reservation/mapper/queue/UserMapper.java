@@ -1,56 +1,56 @@
 package com.project.concert_reservation.mapper.queue;
 
-import com.project.concert_reservation.domain.queue.domain.UserDomain;
-import com.project.concert_reservation.domain.queue.entity.User;
+import com.project.concert_reservation.domain.queue.domain.User;
+import com.project.concert_reservation.domain.queue.entity.UserEntity;
 import com.project.concert_reservation.interfaces.queue.controller.dto.UserCreateRequest;
 import com.project.concert_reservation.interfaces.queue.controller.dto.UserCreateResponse;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public UserDomain entityToDomain(User user) {
-        if (user == null) {
+    public User entityToDomain(UserEntity userEntity) {
+        if (userEntity == null) {
             return null;
         }
 
-        UserDomain userDomain = new UserDomain();
-        userDomain.setId(user.getId());
-        userDomain.setName(user.getName());
+        User userDomain = new User();
+        userDomain.setId(userEntity.getId());
+        userDomain.setName(userEntity.getName());
 
         return userDomain;
     }
 
-    public User domainToEntity(UserDomain userDomain) {
+    public UserEntity domainToEntity(User userDomain) {
         if (userDomain == null){
             return null;
         }
 
-        User user = new User();
-        user.setId(userDomain.getId());
-        user.setName(userDomain.getName());
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userDomain.getId());
+        userEntity.setName(userDomain.getName());
 
-        return user;
+        return userEntity;
     }
 
-    public UserDomain dtoToDomain(UserCreateRequest userCreateRequest) {
+    public User dtoToDomain(UserCreateRequest userCreateRequest) {
         if (userCreateRequest == null){
             return null;
         }
 
-        UserDomain userDomain = new UserDomain();
-        userDomain.setName(userCreateRequest.getName());
+        User user = new User();
+        user.setName(userCreateRequest.getName());
 
-        return userDomain;
+        return user;
     }
 
-    public UserCreateResponse domainToDto(UserDomain userDomain){
-        if (userDomain == null){
+    public UserCreateResponse domainToDto(User user){
+        if (user == null){
             return null;
         }
 
         UserCreateResponse userCreateResponse = new UserCreateResponse();
-        userCreateResponse.setId(userDomain.getId());
-        userCreateResponse.setName(userDomain.getName());
+        userCreateResponse.setId(user.getId());
+        userCreateResponse.setName(user.getName());
 
         return userCreateResponse;
     }

@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserCreateResponse {
-    String id;
+    Long id;
     String name;
 
     String jwt;

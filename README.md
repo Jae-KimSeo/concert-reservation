@@ -24,7 +24,7 @@ User Queue Token API Usecase Sequence Diagram
 ```
 유저 대기열 토큰 기능 API
 Method : POST
-Endpoint : api/v1/users/queue
+Endpoint : api/v1/users/queueEntity
 Request : string UUID
 Response : 
 	string jwt

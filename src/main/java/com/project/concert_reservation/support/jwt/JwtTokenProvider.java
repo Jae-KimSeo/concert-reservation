@@ -13,13 +13,13 @@ public class JwtTokenProvider {
         this.jwtConfig = jwtConfig;
     }
 
-    public String createToken(String userId, String payload) {
+    public String createToken(Long userId, String payload) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + jwtConfig.getValidityInMilliseconds());
 
         return Jwts.builder()
                 .header()
-                .keyId(userId)
+                .keyId(String.valueOf(userId))
                 .and()
                 .issuedAt(now)
                 .expiration(validity)
