@@ -51,12 +51,12 @@ public class QueueService {
     public Long GetUserLeftWaitingCount(Long userId){
         Long queueId, firstWaitingUserQueueId;
 
-        List<QueueEntity> queueEntities = queueRepository.findQueueByUserId(userId);
-        if (queueEntities.size() == 1) {
-            queueId = queueEntities.getFirst().getId();
-        } else {
-            return -1L;
-        }
+//        List<QueueEntity> queueEntities = queueRepository.findQueueByUserId(userId);
+//        if (queueEntities.size() == 1) {
+//            queueId = queueEntities.getFirst().getId();
+//        } else {
+//            return -1L;
+//        }
 //        List<QueueEntity> firstWaitingQueueEntities = queueRepository.findQueueByUserId(waitingQueue.getQueue().peekFirst());
 //        if (firstWaitingQueueEntities.size() == 1) {
 //            firstWaitingUserQueueId = firstWaitingQueueEntities.getFirst().getId();

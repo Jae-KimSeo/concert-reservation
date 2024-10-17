@@ -1,12 +1,10 @@
 package com.project.concert_reservation.infra.queue.repository;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.concert_reservation.domain.queue.entity.QueueEntity;
 import com.project.concert_reservation.domain.queue.port.QueueRepository;
 import com.project.concert_reservation.support.redis.RedisDriver;
 import com.project.concert_reservation.support.util.SerializerUtil;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.Token;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +29,7 @@ public class QueueRedisRepository implements QueueRepository {
     }
 
     public void activateQueueTokens(){
-        //how to handle concurrency problem?
+        //TODO : how to handle concurrency problem?
         Collection<Object> tokens = redisDriver.batchGetTopScoredSortedSet(WaitingQueue, redisDriver.getTotalValueNumOfMap(OngoingQueue));
         redisDriver.batchDeleteTopScoredSortedSet(WaitingQueue, tokens.size());
         if (!redisDriver.putBatchSet(OngoingQueue, tokens)) {
@@ -51,5 +49,7 @@ public class QueueRedisRepository implements QueueRepository {
         // from Activated Set, check each Token By TTL
         // 이거 TTL 만료시에 알아서 삭제되나? TTL 연장/재생성되는 메소드가 필요할듯?
         // TTL에 대한 리서치
+        // 지금 문제는 ttl이 Sorted
+
     }
 }

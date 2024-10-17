@@ -19,13 +19,5 @@ public class Scheduler {
 
     @Scheduled(fixedRate = 60000)
     public void checkDatabaseField() {
-        List<QueueEntity> queueEntities = queueRepository.findQueueByUserId(1L);
-        for (QueueEntity queueEntity : queueEntities) {
-            Duration duration = Duration.between(queueEntity.getLastActiveTime(), LocalDateTime.now());
-            if (duration.toMinutes() >= 3) {
-                queueEntity.setQueueType(Queue.QueueType.None);
-                queueRepository.updateQueue(queueEntity);
-            }
-        }
     }
 }

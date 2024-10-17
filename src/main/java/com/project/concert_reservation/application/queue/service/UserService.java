@@ -39,13 +39,5 @@ public class UserService {
         return jwtTokenProvider.createToken(userId, "");
     }
 
-    public void expireQueue(Long userId) {
-        List<QueueEntity> queueEntities = queueRepository.findQueueByUserId(userId);
-        for (QueueEntity queueEntity : queueEntities){
-            if (queueEntity.getQueueType() == Queue.QueueType.ONGOING) {
-                queueEntity.setQueueType(Queue.QueueType.None);
-            }
-            break;
-        }
-    }
+    // expire Queue는 ttl을 활용하여 자동적으로, 오히려 extendQueueExpiration need
 }
