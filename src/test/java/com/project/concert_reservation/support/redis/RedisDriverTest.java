@@ -1,5 +1,6 @@
 package com.project.concert_reservation.support.redis;
 
+import com.project.concert_reservation.support.util.SerializerUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,11 +46,48 @@ public class RedisDriverTest {
     }
 
     @Test
-    public void testSetValueWithTTL(){
+    public void testSetKeyWithTTL() {
         Collection<Object> result = redisDriver.batchGetTopScoredSortedSet("test", 2);
         redisDriver.putBatchSet("activate-test-token", result);
         for (Object elem : result) {
-            redisDriver.setKeyWithTTL("ttl : " + elem, elem, 60);
+            redisDriver.setWithTTL("ttl : " + elem, elem, 60);
         }
+    }
+
+    @Test
+    public void testExtendTTLOfExistToken() {
+        String key = "ttl : test";
+        String elem = "test";
+        boolean result = false;
+        redisDriver.setWithTTL(key, elem, 60);
+        if (redisDriver.validates(key)) {
+            result = redisDriver.extendTTL(key, 60);
+        } else {
+            LoggerFactory.getLogger(RedisDriverTest.class).info("{} isn't exist key", key);
+        }
+        assertTrue(result);
+    }
+
+    @Test
+    public void testBatchSetWithTTL() {
+        Collection<Object> values = redisDriver.batchGetTopScoredSortedSet("test", 2);
+        boolean result = redisDriver.batchSetWithTTL("test", values, 60);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testGetNumOfSet(){
+        redisDriver.putSet("test", SerializerUtil.serializeValue("test1"));
+        redisDriver.putSet("test", SerializerUtil.serializeValue("test2"));
+
+        assertEquals(Integer.valueOf(2), redisDriver.getNumOfSet("test"));
+    }
+
+    @Test
+    public void testRemoveValueOfSet(){
+        redisDriver.putSet("test", SerializerUtil.serializeValue("test1"));
+        redisDriver.putSet("test", SerializerUtil.serializeValue("test2"));
+        redisDriver.removeValueOfSet("test", SerializerUtil.serializeValue("test2"));
+        assertEquals(Integer.valueOf(1), redisDriver.getNumOfSet("test"));
     }
 }

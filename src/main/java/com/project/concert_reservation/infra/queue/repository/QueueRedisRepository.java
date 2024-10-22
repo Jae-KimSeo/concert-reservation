@@ -30,19 +30,19 @@ public class QueueRedisRepository implements QueueRepository {
 
     public void activateQueueTokens(){
         //TODO : how to handle concurrency problem?
-        Collection<Object> tokens = redisDriver.batchGetTopScoredSortedSet(WaitingQueue, redisDriver.getTotalValueNumOfMap(OngoingQueue));
-        redisDriver.batchDeleteTopScoredSortedSet(WaitingQueue, tokens.size());
-        if (!redisDriver.putBatchSet(OngoingQueue, tokens)) {
-            LoggerFactory.getLogger(QueueRedisRepository.class).error("Failed to activate queue");
-        }
+       // Collection<Object> tokens = redisDriver.batchGetTopScoredSortedSet(WaitingQueue, redisDriver.getTotalValueNumOfMap(OngoingQueue));
+       // redisDriver.batchDeleteTopScoredSortedSet(WaitingQueue, tokens.size());
+       // if (!redisDriver.putBatchSet(OngoingQueue, tokens)) {
+         //   LoggerFactory.getLogger(QueueRedisRepository.class).error("Failed to activate queue");
+        //}
     }
 
     public void extendActivateTokenExpiration(Long userId){
-        redisDriver.setValueWithTTL(OngoingQueue, SerializerUtil.serializeValue(userId), TokenTTL);
+        //redisDriver.setValueWithTTL(OngoingQueue, SerializerUtil.serializeValue(userId), TokenTTL);
     }
 
     public void expireActivateToken(Long userId){
-        redisDriver.deleteValueOfMap(OngoingQueue, SerializerUtil.serializeValue(userId));
+        //redisDriver.deleteValueOfMap(OngoingQueue, SerializerUtil.serializeValue(userId));
     }
 
     public void expireUnActivatedTokens(){

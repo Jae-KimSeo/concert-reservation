@@ -3,16 +3,14 @@ package com.project.concert_reservation.support.redis;
 import org.redisson.Redisson;
 import org.redisson.api.RBucket;
 import org.redisson.api.RMap;
+import org.redisson.api.RSet;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.Map;
 
 @Component
 public class RedisDriver {
@@ -50,47 +48,46 @@ public class RedisDriver {
         return redissonClient.getScoredSortedSet(key).removeRangeByRank(0, deleteNum-1);
     }
 
-    public void batchPutSetCacheWithTTL(String key, Collection<Object> values, int ttl){
-        HashMap<Object, Duration> cacheMap = new HashMap<>();
-        for (Object value : values) {
-            cacheMap.put(value, Duration.ofSeconds(ttl));
-        }
-        redissonClient.getSetCache(key).addAll(cacheMap);
-    }
-
-    public void setKeyWithTTL(String key, Object value, int ttl){
+    public void setWithTTL(String key, Object value, int ttl){
         RBucket<Object> bucket = redissonClient.getBucket(key);
         bucket.set(value, Duration.ofSeconds(ttl));
     }
 
-    public boolean exists(String key){
+    public boolean batchSetWithTTL(String key, Collection<Object> values, int ttl){
+        RSet<Object> set = redissonClient.getSet(key);
+        boolean result = set.addAll(values);
+        for (Object value: values) {
+            setWithTTL(key, value, ttl);
+        }
+        return result;
+    }
+
+    public boolean validates(String key){
         RBucket<Object> bucket = redissonClient.getBucket(key);
         return bucket.isExists();
     }
 
-    public void extendTTL(String key, int ttl){
+    public boolean extendTTL(String key, int ttl){
         RBucket<Object> bucket = redissonClient.getBucket(key);
         if (bucket.isExists()){
             Object value = bucket.get();
             bucket.set(value, Duration.ofSeconds(ttl));
+            return true;
         }
+        return false;
     }
 
-    // Use Sorted Set Instead of map -> why
-    public void setValueWithTTL(String key, Object value, Long ttl){
-        RMap<Object, Object> map = redissonClient.getMap(key);
-        if (!map.containsKey(value)) {
-            map.put(value, value);
-        }
-        redissonClient.getBucket("ttl:"+key).set("exists", Duration.ofSeconds(ttl));
+    public boolean removeValueOfSet(String key, Object value){
+        RSet<Object> sets = redissonClient.getSet(key);
+       if (!sets.remove(value)){
+           LoggerFactory.getLogger(RedisDriver.class).warn("Remove value of set {} failed", key);
+            return false;
+       }
+       return true;
     }
 
-    public void deleteValueOfMap(String key, Object value){
-        redissonClient.getMap(key).remove(value);
+    public Integer getNumOfSet(String key){
+        RSet<Object> sets = redissonClient.getSet(key);
+        return sets.size();
     }
-
-    public Integer getTotalValueNumOfMap(String key){
-        return redissonClient.getMap(key).size();
-    }
-
 }
