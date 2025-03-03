@@ -1,6 +1,6 @@
 package com.project.concert_reservation.common.jwt;
 
-import com.project.concert_reservation.exception.CustomException;
+import com.project.concert_reservation.common.exception.CustomException;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;

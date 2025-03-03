@@ -1,26 +1,39 @@
 package com.project.concert_reservation.user_service.business.service;
 
-import com.project.concert_reservation.common.jwt.JwtConfig;
 import com.project.concert_reservation.common.jwt.JwtTokenProvider;
 import com.project.concert_reservation.common.jwt.JwtTokenValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.project.concert_reservation.user_service.business.domain.UserDomain;
+import com.project.concert_reservation.user_service.infrastructure.repository.UserRepository;
+import com.project.concert_reservation.user_service.interfaces.controller.dto.UserCreateRequest;
+import com.project.concert_reservation.user_service.mapper.UserMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
-    private final JwtConfig jwtConfig;
     private final JwtTokenProvider jwtTokenProvider;
-    private final JwtTokenValidator jwtTokenValidator;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    @Autowired
-    public UserServiceImpl(JwtConfig jwtConfig, JwtTokenProvider jwtTokenProvider, JwtTokenValidator jwtTokenValidator) {
-        this.jwtConfig = jwtConfig;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.jwtTokenValidator = jwtTokenValidator;
+    public UserDomain Cheat_CreateUser(UserCreateRequest userCreateRequest) {
+            UserDomain userDomain = userMapper.dtoToDomain(userCreateRequest);
+
+            String userId = UUID.randomUUID().toString();
+            userDomain.setId(userId);
+            userDomain.setName(userCreateRequest.getName());
+
+            return userMapper.entityToDomain(userRepository.addUser(userMapper.domainToEntity(userDomain)));
     }
 
-    public String ValidateUser(String userId) {
-        // TODO : Check User Table
-        return "userId";
+    public boolean ValidateUser(String userId) {
+        return userRepository.existsById(userId);
     }
+
+    public String CreateWaitingToken(String userId) {
+        return jwtTokenProvider.createToken(userId, "");
+    }
+
 }

@@ -9,7 +9,7 @@ import java.util.HashMap;
 @Getter
 @Setter
 @Component
-public class WaitingQueue extends Queue {
+public class WaitingQueue extends QueueDomain {
     private final HashMap<String, Long> waitingPositionMap;
 
     public WaitingQueue(HashMap<String, Long> waitingPositionMap) {
