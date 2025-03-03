@@ -50,6 +50,9 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.3.1")
     testImplementation("org.mockito:mockito-junit-jupiter:5.3.1")
 
+    implementation ("org.springframework.boot:spring-boot-starter")
+    implementation ("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation ("org.redisson:redisson-spring-boot-starter:3.34.1")
 }
 
 tasks.withType<Test> {
